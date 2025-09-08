@@ -1,6 +1,6 @@
-import { ErrorCodeEnum } from '@/constants/errors';
-import { UpdateUserDto } from '@/dtos/userDto';
-import { BusinessException } from '@/exceptions/businessException';
+import { ErrorCodeEnum } from '@/constants/errors.constant';
+import { UpdateUserDto } from '@/dtos/user.dto';
+import { BusinessException } from '@/exceptions/business.exception';
 
 import { PrismaClient } from '@/generated/prisma';
 

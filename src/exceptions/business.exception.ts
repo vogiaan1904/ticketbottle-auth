@@ -1,4 +1,4 @@
-import { ErrorCode, ErrorCodeEnum } from '@/constants/errors';
+import { ErrorCode, ErrorCodeEnum } from '@/constants/errors.constant';
 
 export class BusinessException extends Error {
   public readonly statusCode: number;

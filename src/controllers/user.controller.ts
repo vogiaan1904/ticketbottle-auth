@@ -1,5 +1,5 @@
-import { UpdateUserDto } from '@/dtos/userDto';
-import { userService } from '@/services/userService.js';
+import { UpdateUserDto } from '@/dtos/user.dto';
+import { userService } from '@/services/user.service.js';
 import catchAsync from '@/utils/catchAsync.js';
 import { sendResponse } from '@/utils/response.js';
 import { Request, Response } from 'express';

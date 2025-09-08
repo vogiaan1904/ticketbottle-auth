@@ -1,4 +1,4 @@
-import { ErrorCodeEnum } from '@/constants/errors';
+import { ErrorCodeEnum } from '@/constants/errors.constant';
 import { Request, Response } from 'express';
 
 export const notFoundMiddleware = (req: Request, res: Response): void => {

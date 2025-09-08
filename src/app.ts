@@ -9,7 +9,7 @@ import healthRoutes from '@/routes/health';
 import userRoutes from '@/routes/user';
 import { auth } from '@/utils/auth';
 import { fromNodeHeaders, toNodeHandler } from 'better-auth/node';
-import { ErrorMiddleware } from './middleware/error';
+import { ErrorMiddleware } from './middleware/errors.middleware';
 import { notFoundMiddleware } from './middleware/notFound';
 
 const app = express();
