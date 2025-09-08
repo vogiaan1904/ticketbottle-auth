@@ -5,7 +5,8 @@
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/server.js",
+    "start:prod": "cross-env NODE_ENV=production tsx dist/server.js",
+    "start": "cross-env NODE_ENV=development tsx dist/server.js",
     "dev": "tsx watch src/server.ts",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -27,7 +28,9 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@better-auth/cli": "^1.3.8",
     "@prisma/client": "^6.15.0",
+    "@types/jsonwebtoken": "^9.0.10",
     "better-auth": "^1.3.8",
     "compression": "^1.8.1",
     "cors": "^2.8.5",
@@ -37,6 +40,7 @@
     "express-rate-limit": "^8.1.0",
     "express-validator": "^7.2.1",
     "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.1",
     "pg": "^8.16.3",
     "zod": "^4.1.5"
@@ -52,6 +56,7 @@
     "@types/supertest": "^6.0.3",
     "@typescript-eslint/eslint-plugin": "^8.42.0",
     "@typescript-eslint/parser": "^8.42.0",
+    "cross-env": "^10.0.0",
     "eslint": "^9.35.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
@@ -66,6 +71,7 @@
     "supertest": "^7.1.4",
     "ts-jest": "^29.4.1",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.16",
     "tsconfig-paths": "^4.2.0",
     "tsx": "^4.20.5",
     "typescript": "^5.9.2"

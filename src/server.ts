@@ -1,29 +1,51 @@
-import app from './app.js';
-import config from '@/config/index.js';
+import app from './app';
+import config from '@/config/config';
+import http from 'http';
+import { PrismaClient } from '@/generated/prisma';
 
-const startServer = (): void => {
-  try {
-    app.listen(config.port, config.host, () => {
-      console.log(`🚀 Server running on http://${config.host}:${config.port}`);
-      console.log(`📝 Environment: ${config.nodeEnv}`);
-      console.log(
-        `🔗 Health check: http://${config.host}:${config.port}/api/health`
-      );
-    });
-  } catch (error) {
-    console.error('Failed to start server:', error);
-    process.exit(1);
-  }
-};
+const prisma = new PrismaClient();
+const server = http.createServer(app);
 
-process.on('unhandledRejection', (reason: unknown) => {
-  console.error('Unhandled Rejection at:', reason);
-  process.exit(1);
+function gracefulShutdown(signal?: string): void {
+  console.log(`Shutdown initiated${signal ? ` (${signal})` : ''}`);
+
+  const forceExit = setTimeout(() => {
+    console.error('Could not close connections in time, forcing exit');
+  }, 5000);
+
+  forceExit.unref();
+
+  server.close(async () => {
+    console.log('HTTP server closed');
+
+    try {
+      await prisma.$disconnect();
+      console.log('Database connections closed');
+      clearTimeout(forceExit);
+    } catch (err) {
+      console.error('Error during database disconnect:', err);
+      clearTimeout(forceExit);
+    }
+  });
+}
+
+// Handle signals
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+
+// Handle uncaught errors
+process.on('unhandledRejection', (reason) => {
+  console.error('Unhandled Rejection:', reason);
+  gracefulShutdown();
 });
 
-process.on('uncaughtException', (error: Error) => {
+process.on('uncaughtException', (error) => {
   console.error('Uncaught Exception:', error);
-  process.exit(1);
+  gracefulShutdown();
 });
 
-startServer();
+// Start server
+server.listen(config.port, config.host, () => {
+  console.log(`Server running on http://${config.host}:${config.port}`);
+  console.log(`Environment: ${config.nodeEnv}`);
+});

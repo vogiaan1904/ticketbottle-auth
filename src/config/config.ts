@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import type { Config } from '@/types/index.js';
+import type { Config } from '@/types/config';
 
 dotenv.config();
 
@@ -11,6 +11,7 @@ const config: Config = {
   betterAuthSecret:
     process.env.BETTER_AUTH_SECRET || 'fallback-secret-change-in-production',
   databaseUrl: process.env.DATABASE_URL || '',
+  internalKey: process.env.MICROSERVICES_INTERNAL_KEY || '',
 };
 
 export default config;

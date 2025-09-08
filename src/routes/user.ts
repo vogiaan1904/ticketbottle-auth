@@ -1,14 +1,14 @@
+import { userController } from '@/controllers/userController.js';
+import { internalUserJwt } from '@/middleware/internalUserJwt';
+import { validate } from '@/utils/validate.js';
 import { Router } from 'express';
 import { z } from 'zod';
-import { validate } from '@/utils/validate.js';
-import { userController } from '@/controllers/userController.js';
-import { requireAuth, checkUserAccess } from '@/middleware/auth.js';
 
 const router = Router();
 
 const updateUserSchema = z.object({
   params: z.object({
-    id: z.string().uuid('Invalid user ID format'),
+    id: z.string(),
   }),
   body: z.object({
     name: z.string().min(2).optional(),
@@ -21,10 +21,11 @@ const updateUserSchema = z.object({
   }),
 });
 
+router.use(internalUserJwt);
+
 router.patch(
   '/update/:id',
-  requireAuth,
-  checkUserAccess,
+  internalUserJwt,
   validate(updateUserSchema),
   userController.updateProfile
 );

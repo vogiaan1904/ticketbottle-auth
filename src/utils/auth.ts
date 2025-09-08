@@ -1,7 +1,8 @@
 import { betterAuth } from 'better-auth';
-import config from '@/config/index.js';
+import config from '@/config/config.js';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { PrismaClient } from '@/generated/prisma';
+
 const prisma = new PrismaClient();
 
 export const auth = betterAuth({
@@ -10,18 +11,6 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
-  },
-  user: {
-    additionalFields: {
-      name: {
-        type: 'string',
-        required: true,
-      },
-      phone: {
-        type: 'string',
-        required: false,
-      },
-    },
   },
   socialProviders: {
     google: {

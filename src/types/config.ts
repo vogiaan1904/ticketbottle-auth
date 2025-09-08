@@ -5,4 +5,5 @@ export interface Config {
   corsOrigin: string;
   betterAuthSecret: string;
   databaseUrl: string;
+  internalKey: string;
 }

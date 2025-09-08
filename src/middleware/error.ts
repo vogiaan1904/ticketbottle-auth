@@ -1,7 +1,7 @@
-import config from '@/config/index.js';
+import config from '@/config/config.js';
 import { ErrorCode, ErrorCodeEnum } from '@/constants/errors';
-import { BusinessException } from '@/exceptions';
-import { APIError } from 'better-auth/*';
+import { BusinessException } from '@/exceptions/businessException.js';
+import { APIError } from 'better-auth/api';
 import { NextFunction, Request, Response } from 'express';
 import { ZodError } from 'zod';
 

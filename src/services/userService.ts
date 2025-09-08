@@ -1,6 +1,7 @@
 import { ErrorCodeEnum } from '@/constants/errors';
 import { UpdateUserDto } from '@/dtos/userDto';
-import { BusinessException } from '@/exceptions';
+import { BusinessException } from '@/exceptions/businessException';
+
 import { PrismaClient } from '@/generated/prisma';
 
 const prisma = new PrismaClient();
